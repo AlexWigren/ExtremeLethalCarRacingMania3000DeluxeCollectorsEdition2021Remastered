@@ -8,7 +8,6 @@
    Latest update 2015-08-28 by F Lundevall
 
    For copyright and licensing, see file COPYING */
-
 /* Declare display-related functions from mipslabfunc.c */
 void display_image(int x, const uint8_t *data);
 void display_init(void);
@@ -23,15 +22,57 @@ int nextprime( int inval );
 void quicksleep(int cyc);
 void tick( unsigned int * timep );
 
+// This code represents the game state
+// Written by Axel Karlsson
+typedef enum {
+	eSplashScreen,
+	eMainMenu,
+	eRaceTrack,
+	eGameOver,
+} eGameState;
+
 // Our own functions
-void set1(uint8_t x, uint8_t y, uint8_t *image);
-void set0(uint8_t x, uint8_t y, uint8_t *image);
+void set1(int x, int y, uint8_t *image);
+void set0(int x, int y, uint8_t *image);
+void spawnPlayerCar(uint8_t xCord, uint8_t yCord);
+void spawnRock(int x, int y, int index);
+void drawRock(int x, int y, uint8_t *image);
+void spawnOil(int x, int y, int index);
+void drawOil(int x, int y, uint8_t *image);
+void display_fullscreen(const uint8_t *data);
+void movePlayerUp();
+void movePlayerDown();
+void movePlayerLeft();
+void movePlayerRight();
+void moveObjectUp(int index);
+void moveObjectDown(int index);
+void moveObjectLeft(int index);
+void moveObjectRight(int index);
+void drawStripes(uint8_t *image);
+void updatePositions();
+void collisionCheck();
+void gameState0();
+void gameState1();
+void gameState2();
+void gameInit();
 
 // Our own variables
-extern uint8_t[512] gameDisplay;
-extern uint8_t[8] objectType;
-extern uint8_t[8] xCords;
-extern uint8_t[8] yCords;
+extern uint8_t gameDisplay[];
+extern uint8_t objectType[];
+extern uint8_t xCords[];
+extern uint8_t yCords[];
+extern uint8_t behaviour[];
+extern uint8_t const logo[];
+extern int gamestate;
+extern int buttonStates;
+extern int switchStates;
+extern eGameState nextState;
+extern int checkDeath;
+extern int playerDisableControll;
+#define MAXOBJECTS 8
+extern int secondsSurvived;
+
+
 
 /* Declare display_debug - a function to help debugging.
 
@@ -62,6 +103,6 @@ extern char textbuffer[4][16];
 void delay(int);
 void time2string( char *, int );
 /* Written as part of i/o lab: getbtns, getsw, enable_interrupt */
-int getbtns(void);
-int getsw(void);
+int getbtns();
+int getsw();
 void enable_interrupt(void);

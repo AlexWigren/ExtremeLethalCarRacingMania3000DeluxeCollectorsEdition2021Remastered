@@ -2,7 +2,7 @@
  * time4io.c
  *
  *  Created on: 22 feb. 2021
- *      Author: Axel
+ *  This code was written together for the lab
  */
 
 
@@ -16,7 +16,12 @@ int getsw(void) {
 }
 
 // return the states of buttons 4 - 2, button 2 is lsb. All other bits should be 0.
+// Could be optimized, it works so we left it as is
 int getbtns(void) {
-	return (PORTD >> 5) & 0x7;
+	// Buttons 2 - 4
+	int sendBtns = 0;
+	sendBtns = (PORTD >> 4) & 0xE;
+	sendBtns |= (PORTF >> 1) & 0x1;
+	return sendBtns;
 }
 

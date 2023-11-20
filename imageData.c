@@ -2,11 +2,15 @@
  * Images and such used in our project is stored here
  * 
  * Created by Axel Karlsson 
- * 2021 - 03 -21
+ * 2021 - 03 -02
  * 
  */
 
-uint8_t gameDisplay[] = {
+#include <stdint.h>   /* Declarations of uint_32 and the like */
+#include <pic32mx.h>  /* Declarations of system-specific addresses etc */
+#include "mipslab.h"  /* Declatations for these labs */
+
+uint8_t gameDisplay[512] = {
 		0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0,
